@@ -11,13 +11,11 @@ module Blogit
 
     validates :title, presence: true, length: { minimum: 10, maximum: 66 }
     validates :body,  presence: true, length: { minimum: 10 }
-    validates :blogger_id, presence: true
+    validates :summary, presence: true, length: { minimum: 10 }
 
     # ================
     # = Associations =
     # ================
-
-    belongs_to :blogger, :polymorphic => true
 
     has_many :comments, :class_name => "Blogit::Comment"
 
