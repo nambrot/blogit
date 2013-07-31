@@ -5,7 +5,7 @@ module Blogit
 
     self.table_name = "blog_posts"
     
-    acts_as_taggable
+    # acts_as_taggable
 
     # ===============
     # = Validations =
