@@ -3,7 +3,7 @@
 <% end %>
 
 <% if @posts.any? %>
-
+<% cache @posts do %>
   <%= render partial: "blogit/posts/post_on_index_action",
     collection: @posts,
     as: :post,
@@ -12,7 +12,7 @@
 <% else %>
 
   <%= render partial: "blogit/posts/empty" %>
-
+<% end %>
 <% end %>
 
 <%= render "pagination" %>
