@@ -4,4 +4,5 @@
 <%= render "blogit/posts/post_footer", post: @post %>
 <%= comments_for @post %>
 <% end %>
+<% content_for :title, @post.title %>
 <% content_for :meta_description, @post.summary %>
