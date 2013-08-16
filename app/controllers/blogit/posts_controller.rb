@@ -19,6 +19,8 @@ module Blogit
 
     blogit_authenticate(except: [:index, :show])
 
+    caches_action :index, :show
+
     def index
       @posts = Post.order('updated_at DESC').page(params[:page])
     end
@@ -38,6 +40,7 @@ module Blogit
     def create
       @post = current_blogger.blog_posts.new(valid_params)
       if @post.save
+        Rails.cache.clear
         redirect_to @post, notice: t(:blog_post_was_successfully_created, scope: 'blogit.posts')
       else
         render action: "new"
@@ -47,6 +50,7 @@ module Blogit
     def update
       @post = current_blogger.blog_posts.find(params[:id])
       if @post.update_attributes(valid_params)
+        Rails.cache.clear
         redirect_to @post, notice: t(:blog_post_was_successfully_updated, scope: 'blogit.posts')
       else
         render action: "edit"
@@ -56,6 +60,7 @@ module Blogit
     def destroy
       @post = current_blogger.blog_posts.find(params[:id])
       @post.destroy
+      Rails.cache.clear
       redirect_to posts_url, notice: t(:blog_post_was_successfully_destroyed, scope: 'blogit.posts')
     end
 
